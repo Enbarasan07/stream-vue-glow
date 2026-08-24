@@ -10,14 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as MovieDetailsRouteImport } from './routes/movie-details'
 import { Route as MoviesRouteImport } from './routes/movies'
+import { Route as PlayerRouteImport } from './routes/player'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as TvShowsRouteImport } from './routes/tv-shows'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MovieDetailsRoute = MovieDetailsRouteImport.update({
@@ -28,6 +36,16 @@ const MovieDetailsRoute = MovieDetailsRouteImport.update({
 const MoviesRoute = MoviesRouteImport.update({
   id: '/movies',
   path: '/movies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlayerRoute = PlayerRouteImport.update({
+  id: '/player',
+  path: '/player',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -43,38 +61,75 @@ const TvShowsRoute = TvShowsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/movie-details': typeof MovieDetailsRoute
   '/movies': typeof MoviesRoute
+  '/player': typeof PlayerRoute
+  '/profile': typeof ProfileRoute
   '/search': typeof SearchRoute
   '/tv-shows': typeof TvShowsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/movie-details': typeof MovieDetailsRoute
   '/movies': typeof MoviesRoute
+  '/player': typeof PlayerRoute
+  '/profile': typeof ProfileRoute
   '/search': typeof SearchRoute
   '/tv-shows': typeof TvShowsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/movie-details': typeof MovieDetailsRoute
   '/movies': typeof MoviesRoute
+  '/player': typeof PlayerRoute
+  '/profile': typeof ProfileRoute
   '/search': typeof SearchRoute
   '/tv-shows': typeof TvShowsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/movie-details' | '/movies' | '/search' | '/tv-shows'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/movie-details'
+    | '/movies'
+    | '/player'
+    | '/profile'
+    | '/search'
+    | '/tv-shows'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/movie-details' | '/movies' | '/search' | '/tv-shows'
-  id: '__root__' | '/' | '/movie-details' | '/movies' | '/search' | '/tv-shows'
+  to:
+    | '/'
+    | '/login'
+    | '/movie-details'
+    | '/movies'
+    | '/player'
+    | '/profile'
+    | '/search'
+    | '/tv-shows'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/movie-details'
+    | '/movies'
+    | '/player'
+    | '/profile'
+    | '/search'
+    | '/tv-shows'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   MovieDetailsRoute: typeof MovieDetailsRoute
   MoviesRoute: typeof MoviesRoute
+  PlayerRoute: typeof PlayerRoute
+  ProfileRoute: typeof ProfileRoute
   SearchRoute: typeof SearchRoute
   TvShowsRoute: typeof TvShowsRoute
 }
@@ -86,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/movie-details': {
@@ -100,6 +162,20 @@ declare module '@tanstack/react-router' {
       path: '/movies'
       fullPath: '/movies'
       preLoaderRoute: typeof MoviesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/player': {
+      id: '/player'
+      path: '/player'
+      fullPath: '/player'
+      preLoaderRoute: typeof PlayerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -121,8 +197,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   MovieDetailsRoute: MovieDetailsRoute,
   MoviesRoute: MoviesRoute,
+  PlayerRoute: PlayerRoute,
+  ProfileRoute: ProfileRoute,
   SearchRoute: SearchRoute,
   TvShowsRoute: TvShowsRoute,
 }

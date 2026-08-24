@@ -36,7 +36,7 @@ export type Title = {
   genre: string;
   image: string;
   description: string;
-  progress?: number;
+  progress?: number | undefined;
 };
 
 export const titles: Title[] = [
@@ -72,7 +72,7 @@ export function ActionLink({ to, icon, children, secondary = false }: { to: "/pl
   return <Link to={to} className={secondary ? "inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-border bg-foreground/10 px-5 text-sm font-bold text-foreground backdrop-blur-md transition-all hover:bg-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" : "inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-bold text-primary-foreground shadow-brand transition-all hover:bg-primary-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"}><Icon name={icon} className="h-4 w-4" />{children}</Link>;
 }
 
-export function MovieCard({ item, rank, landscape = false }: { item: Title; rank?: number; landscape?: boolean }) {
+export function MovieCard({ item, rank, landscape = false }: { item: Title; rank?: number | undefined; landscape?: boolean }) {
   return <article className={`group relative shrink-0 overflow-hidden rounded-md border border-border bg-card shadow-card ${landscape ? "w-[17rem] sm:w-[21rem]" : "w-[9.4rem] sm:w-[12rem] lg:w-[13.5rem]"}`}><Link to="/movie-details" className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"><div className={landscape ? "aspect-video overflow-hidden" : "aspect-[2/3] overflow-hidden"}><img src={item.image} alt={`${item.title} fictional artwork`} width={landscape ? 1920 : 768} height={landscape ? 1080 : 1152} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div><div className="absolute inset-0 flex flex-col justify-end bg-card-overlay p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100"><span className="mb-auto grid h-9 w-9 place-items-center self-center rounded-full bg-primary text-primary-foreground shadow-brand"><Icon name="play" className="h-4 w-4 fill-current" /></span><h3 className="text-sm font-bold text-foreground">{item.title}</h3><p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground">{item.description}</p><div className="mt-2 flex items-center gap-2 text-[10px] text-foreground"><span className="text-score">★ {item.rating}</span><span>{item.year}</span><span className="truncate">{item.genre}</span></div></div>{rank && <span className="absolute left-2 top-2 grid h-7 min-w-7 place-items-center rounded-sm bg-primary px-1.5 text-xs font-black text-primary-foreground">{rank}</span>}{typeof item.progress === "number" && <div className="absolute inset-x-0 bottom-0 h-1 bg-muted"><div className="h-full bg-primary" style={{ width: `${item.progress}%` }} /></div>}</Link><div className="px-1 pb-1 pt-2 group-hover:opacity-0"><h3 className="truncate text-sm font-semibold text-foreground">{item.title}</h3><p className="mt-1 flex gap-2 text-[11px] text-muted-foreground"><span>{item.year}</span><span className="text-score">★ {item.rating}</span></p></div></article>;
 }
 
